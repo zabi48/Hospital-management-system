@@ -123,11 +123,11 @@ def apply_filters(patients, current_user):
         print("Showing unattended patients only.")
         filtered_list = [p for p in patients if p['diagnosis'] == 'diagnosis']
     elif filter_choice == '5':
-        doctor_name = input("Enter doctor's name: ")
+        doctor_name = input("Enter doctor's name: ").lower()
         print(f"Showing patients assigned to Dr. {doctor_name}.")
         filtered_list = [p for p in patients if p['doctor'] == doctor_name]
     elif filter_choice == '6':
-        diagnosis_name = input("Enter diagnosis: ")
+        diagnosis_name = input("Enter diagnosis: ").lower()
         print(f"Showing patients with diagnosis: {diagnosis_name}.")
         filtered_list = [p for p in patients if p['diagnosis'] == diagnosis_name]
     elif filter_choice == '7':
@@ -220,7 +220,7 @@ def add_patient(patients):
     diagnosis = input("Enter patient diagnosis: ").lower()
     doctor = input("Enter patient doctor: ").lower()
     status = "admitted"
-    mark_for_discharge = "False
+    mark_for_discharge = "False"
 
     new_patient = {
         "patient_id": patient_id,
