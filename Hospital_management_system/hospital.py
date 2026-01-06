@@ -96,7 +96,7 @@ def show_menu(role):
         if action in PERMISSIONS[role]:
             print(f"[{choice}] --> {action.replace('_', ' ').title()}")
 
-def apply_filters(patients):
+def apply_filters(patients, current_user):
     filtered_list = []
     print("Filter Options:")
     print("[1] View All Patients")
@@ -121,7 +121,7 @@ def apply_filters(patients):
         filtered_list = [p for p in patients if p['status'] == 'discharged']
     elif filter_choice == '4':
         print("Showing unattended patients only.")
-        filtered_list = [p for p in patients if p['doctor'] == 'doctor' and p['diagnosis'] == 'diagnosis']
+        filtered_list = [p for p in patients if p['diagnosis'] == 'diagnosis']
     elif filter_choice == '5':
         doctor_name = input("Enter doctor's name: ")
         print(f"Showing patients assigned to Dr. {doctor_name}.")
@@ -150,12 +150,15 @@ def apply_filters(patients):
     return filtered_list
 
 def is_allowed(role, choices):
+    action_name = None
     for choice, action in MENU_ACTIONS.items():
         if choices == choice:
-            action_name = action
-        allowed_actions = PERMISSIONS.get(role, set())
+            action_name = action    
+    allowed_actions = PERMISSIONS.get(role, set())
 
-    if action_name in allowed_actions:
+    if action_name == None:
+        return False
+    elif action_name in allowed_actions:
         return True
     else:
         return False
@@ -217,7 +220,7 @@ def add_patient(patients):
     diagnosis = input("Enter patient diagnosis: ").lower()
     doctor = input("Enter patient doctor: ").lower()
     status = "admitted"
-    mark_for_discharge = "False"
+    mark_for_discharge = "False
 
     new_patient = {
         "patient_id": patient_id,
@@ -321,7 +324,7 @@ def mark_for_discharge(patients):
     patient_id = input("Enter patient ID to mark for discharge: ")
     for p in patients:
         if p["patient_id"] == patient_id:
-            p["ready_for_discharge"] = "True"
+            p["marked_for_discharge"] = "True"
             save_patients(patients)
             print("Patient marked for discharge.")
             return
@@ -334,31 +337,11 @@ def discharge_patient(patients):
             if patient["marked_for_discharge"] != "True":
                 print("Patient is not marked for discharge.")
                 return
-            patient["discharged"] = "True"
             patient["status"] = "discharged"
             save_patients(patients)
             print("Patient discharged.")
             return
     print("Patient not found.")
-
-def delete_user(users):
-    username = input("Enter username to delete: ").lower()
-    for u in users:
-        if u["username"] == username:
-            if u["role"] == "admin":
-                print("Cannot delete admin user.")
-                return
-            confirm = input(f"Are you sure you want to delete user {username}? (y/n): ").lower()
-            if confirm.lower() != 'y':
-                print("Deletion cancelled.")
-                return
-            
-            users.remove(u)
-            save_users(users)
-            print("User deleted.")
-            return
-            
-    print("User not found.")
 
 def change_pin(current_user, users):
     new_pin = input("Enter new PIN: ")
@@ -396,7 +379,7 @@ while True:
        print("You do not have permission to perform this action.")
        continue
     elif choice == 'vpr':
-        filter = apply_filters(patients)
+        filter = apply_filters(patients, current_user)
         view_patient_record(filter)
     elif choice == 'ap':
         add_patient(patients)
