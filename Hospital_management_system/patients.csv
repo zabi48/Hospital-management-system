@@ -1,8 +1,8 @@
-2,faran,19,m,pending,pending,prescription,admitted,False,False
-3,ahmed,22,m,pending,pending,prescription,admitted,False,False
-4,sara,20,f,pending,pending,prescription,admitted,False,False
-5,leena,21,f,pending,pending,prescription,admitted,False,False
-6,omar,23,m,pending,pending,prescription,admitted,False,False
-7,hana,24,f,pending,pending,prescription,admitted,False,False
-8,yousef,25,m,pending,pending,prescription,admitted,False,False
-9,alaa,26,m,pending,pending,prescription,admitted,False,False
+2,faran,19,m,diagnosis,doctor,False,admitted
+3,ahmed,22,m,diagnosis,doctor,False,admitted
+4,sara,20,f,diagnosis,doctor,False,admitted
+5,leena,21,f,diagnosis,doctor,False,admitted
+6,omar,23,m,diagnosis,doctor,False,admitted
+7,hana,24,f,diagnosis,doctor,False,admitted
+8,yousef,25,m,diagnosis,doctor,False,admitted
+9,alaa,26,m,diagnosis,doctor,False,admitted
